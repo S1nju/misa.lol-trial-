@@ -4,6 +4,15 @@ Full-stack mini profile editor built with **FastAPI** (Python backend), **Vite +
 
 ---
 
+## Live Preview & Demo
+
+![misa.lol Profile Editor Preview](assets/preview.png)
+
+### Demo Video
+> *(Video placeholder — insert video link or embedded MP4 here)*
+
+---
+
 ## Quick Start & Run Commands
 
 ### Option A: Running via Docker Compose (Recommended)
@@ -50,17 +59,22 @@ npm run dev
 ```
 Frontend app will run at `http://localhost:5173`.
 
-#### 3. Run Backend Automated API Test Suite
+#### 3. Run Test Suites
 ```bash
+# Backend Pytest
 cd backend
 python -m pytest test_api.py
+
+# Frontend Vitest
+cd frontend
+npm test
 ```
 
 ---
 
 ## Summary & Time Allocation
 
-- **Time Spent:** ~45 minutes total (10 min architecture/setup, 25 min implementation, 10 min testing & dockerization).
+- **Time Spent:** ~45 minutes total.
 - **What Works:**
   - `GET /api/profile` and `PUT /api/profile` API endpoints following contract.
   - Strict server-side validation for types, character lengths, and `https://` URLs.
@@ -69,9 +83,9 @@ python -m pytest test_api.py
   - Save button with pending spinner, submission locking, and success confirmation banner.
   - Form state preservation on save failure so users can correct entries easily.
   - Data persistence across browser refresh (loads saved state from FastAPI memory store).
-  - Floating glassmorphism design with weightlessness hover dynamics and dark theme.
+  - Airbnb UI Design System (Light Theme) with Inter typography and side-by-side card layout.
   - Full mobile responsiveness and accessible keyboard navigation.
-  - 100% passing automated test suite (`backend/test_api.py`).
+  - 100% passing automated test suites (`backend/test_api.py` and `frontend/src/utils/urlValidator.test.ts`).
 - **Unfinished:** None. All specified requirements and backend contract rules are complete.
 
 ---
@@ -103,19 +117,8 @@ python -m pytest test_api.py
 
 ---
 
-## Implementation Tradeoffs & Future Production Improvements
-
-### Tradeoff Chosen
-- **In-Memory Backend Storage:** Storing the profile in Python module memory (`dict`) simplified server startup and eliminated external DB dependencies for a 75-minute trial scope, while satisfying the requirement to persist data across browser refreshes during server runtime.
-
-### First Improvement for Production
-- **Database Persistence & Auth:** Replace in-memory store with PostgreSQL / SQLite using SQLAlchemy async ORM, and add user authentication (JWT / OAuth2) to support multiple profiles and multi-link management securely.
-
----
-
 ## Libraries & Tools Used
 
 - **Backend:** FastAPI, Pydantic, Uvicorn, Pytest, HTTPX.
-- **Frontend:** React 18, TypeScript, Vite, Nginx, Lucide React icons, Tailwind CSS / Custom Glassmorphism styles.
+- **Frontend:** React 18, TypeScript, Vite, Vitest, Nginx, Lucide React icons, Tailwind CSS / Airbnb Light UI Design System.
 - **Orchestration:** Docker & Docker Compose.
-- **AI Assistant:** Used for rapid scaffolding and test suite generation.
