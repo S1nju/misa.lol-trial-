@@ -3,7 +3,6 @@ import { Header } from './components/Header';
 import { ProfileForm } from './components/ProfileForm';
 import { ProfilePreview } from './components/ProfilePreview';
 import type { Profile, ApiErrorResponse } from './types';
-import { Loader2, AlertTriangle, RefreshCw } from 'lucide-react';
 
 const INITIAL_STATE: Profile = {
   displayName: '',
@@ -94,31 +93,26 @@ export const App: React.FC = () => {
     <div className="min-h-screen bg-[#FEFEFE] text-[#222222] flex flex-col font-sans">
       <Header />
 
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex flex-col">
+      <main className="flex-1 w-full px-4 sm:px-6 py-8 md:py-12">
         {isLoading ? (
-          <div className="flex flex-col items-center justify-center my-auto py-20 space-y-4">
-            <Loader2 className="w-10 h-10 animate-spin text-[#FF385C]" />
-            <p className="text-sm font-medium text-[#717171]">Loading profile data from server...</p>
+          <div className="flex flex-col items-center justify-center py-20 space-y-4 text-center">
+            <p className="text-sm font-medium text-[#717171]">Loading profile data...</p>
           </div>
         ) : loadError ? (
-          <div className="max-w-md mx-auto my-auto airbnb-card p-8 rounded-2xl text-center space-y-4">
-            <div className="w-12 h-12 rounded-full bg-[#FFF1F0] text-[#E25275] flex items-center justify-center mx-auto">
-              <AlertTriangle className="w-6 h-6" />
-            </div>
+          <div className="max-w-md mx-auto card-surface text-center space-y-4">
             <h3 className="text-lg font-bold text-[#222222]">Connection Failed</h3>
-            <p className="text-sm text-[#717171]">{loadError}</p>
+            <p className="text-xs text-[#717171]">{loadError}</p>
             <button
               onClick={fetchProfile}
-              className="btn-airbnb px-5 py-2.5 rounded-xl text-sm font-semibold inline-flex items-center space-x-2 cursor-pointer"
+              className="btn-primary"
             >
-              <RefreshCw className="w-4 h-4" />
-              <span>Retry Loading</span>
+              Retry Loading
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start my-auto">
+          <div className="editor-layout">
             {/* Form Column */}
-            <div className="md:col-span-7">
+            <div className="editor-form-col">
               <ProfileForm
                 profile={profile}
                 onChange={handleProfileChange}
@@ -130,7 +124,7 @@ export const App: React.FC = () => {
             </div>
 
             {/* Preview Column */}
-            <div className="md:col-span-5 md:sticky md:top-24">
+            <div className="editor-preview-col">
               <ProfilePreview profile={profile} />
             </div>
           </div>
