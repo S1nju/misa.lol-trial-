@@ -90,6 +90,23 @@ def test_put_profile_regression_malformed_port():
     assert client.get("/api/profile").json() == prev_state
 
 
+def test_put_profile_regression_spaces_in_url():
+    """Regression test: https://example .com must be rejected."""
+    prev_state = client.get("/api/profile").json()
+    invalid_payload = {
+        "displayName": "Valid Name",
+        "bio": "Valid bio",
+        "link": {
+            "label": "Space in URL",
+            "url": "https://example .com"
+        }
+    }
+    response = client.put("/api/profile", json=invalid_payload)
+    assert response.status_code == 400
+    assert "link.url" in response.json()["details"]
+    assert client.get("/api/profile").json() == prev_state
+
+
 def test_put_profile_invalid_display_name_length():
     prev_state = client.get("/api/profile").json()
     invalid_payload = {

@@ -20,6 +20,10 @@ describe('isValidHttpsUrl', () => {
     expect(isValidHttpsUrl('https://example.com:abc')).toBe(false);
   });
 
+  it('returns false for URLs containing spaces (regression: https://example .com)', () => {
+    expect(isValidHttpsUrl('https://example .com')).toBe(false);
+  });
+
   it('returns false for javascript scheme', () => {
     expect(isValidHttpsUrl('javascript:alert(1)')).toBe(false);
   });

@@ -96,6 +96,8 @@ def validate_profile_payload(data: dict) -> tuple[dict, dict[str, str]]:
         errors["link.url"] = "Link URL is required."
     elif not link_url.startswith("https://"):
         errors["link.url"] = "Link URL must start with 'https://'."
+    elif any(c.isspace() for c in link_url):
+        errors["link.url"] = "Link URL cannot contain spaces."
     else:
         try:
             parsed = urlparse(link_url)
