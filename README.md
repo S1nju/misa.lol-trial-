@@ -9,7 +9,9 @@ Full-stack mini profile editor built with **FastAPI** (Python backend), **Vite +
 ![misa.lol Profile Editor Preview](assets/preview.png)
 
 ### Demo Video
-> *(Video placeholder — insert video link or embedded MP4 here)*
+🎬 [Watch Demo Video (`assets/preview.mp4`)](assets/preview.mp4)
+
+<video src="assets/preview.mp4" controls width="100%"></video>
 
 ---
 
