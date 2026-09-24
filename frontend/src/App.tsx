@@ -132,7 +132,7 @@ export const App: React.FC = () => {
       </main>
 
       <footer className="w-full border-t border-[#EBEBEB] py-6 text-center text-xs text-[#717171] bg-white">
-        misa.lol profile editor trial • Airbnb UI Design System
+        misa.lol profile editor trial 
       </footer>
     </div>
   );
