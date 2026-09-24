@@ -22,7 +22,6 @@ export const App: React.FC = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  // Fetch initial profile from backend on mount
   const fetchProfile = async () => {
     setIsLoading(true);
     setLoadError(null);
@@ -76,12 +75,10 @@ export const App: React.FC = () => {
         return;
       }
 
-      // Server returns updated profile
       const savedProfile: Profile = responseData;
       setProfile(savedProfile);
       setSaveSuccess(true);
 
-      // Auto hide success banner after 4 seconds
       setTimeout(() => {
         setSaveSuccess(false);
       }, 4000);
@@ -94,35 +91,32 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] text-slate-100 flex flex-col relative overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[400px] glow-gradient pointer-events-none" />
-
+    <div className="min-h-screen bg-[#FEFEFE] text-[#222222] flex flex-col relative">
       <Header />
 
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-8 z-10 flex flex-col justify-center">
+      <main className="flex-1 max-w-6xl w-full mx-auto px-6 py-8 flex flex-col justify-center">
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-20 space-y-4">
-            <Loader2 className="w-10 h-10 animate-spin text-purple-500" />
-            <p className="text-sm text-slate-400">Loading profile data from server...</p>
+            <Loader2 className="w-10 h-10 animate-spin text-[#FF385C]" />
+            <p className="text-sm font-medium text-[#717171]">Loading profile data from server...</p>
           </div>
         ) : loadError ? (
-          <div className="max-w-md mx-auto my-12 glass-panel p-6 rounded-2xl text-center space-y-4">
-            <div className="w-12 h-12 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto">
+          <div className="max-w-md mx-auto my-12 airbnb-card p-8 rounded-2xl text-center space-y-4">
+            <div className="w-12 h-12 rounded-full bg-[#FFF1F0] text-[#E25275] flex items-center justify-center mx-auto">
               <AlertTriangle className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-white">Connection Failed</h3>
-            <p className="text-sm text-slate-400">{loadError}</p>
+            <h3 className="text-lg font-bold text-[#222222]">Connection Failed</h3>
+            <p className="text-sm text-[#717171]">{loadError}</p>
             <button
               onClick={fetchProfile}
-              className="btn-primary px-4 py-2.5 rounded-xl text-sm font-semibold inline-flex items-center space-x-2 cursor-pointer"
+              className="btn-airbnb px-5 py-2.5 rounded-xl text-sm font-semibold inline-flex items-center space-x-2 cursor-pointer"
             >
               <RefreshCw className="w-4 h-4" />
               <span>Retry Loading</span>
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             {/* Form Column */}
             <div className="lg:col-span-7">
               <ProfileForm
@@ -143,8 +137,8 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      <footer className="w-full border-t border-white/5 py-4 text-center text-xs text-slate-500">
-        misa.lol profile editor trial exercise • full-stack implementation
+      <footer className="w-full border-t border-[#EBEBEB] py-6 text-center text-xs text-[#717171] bg-white">
+        misa.lol profile editor trial • Airbnb UI Design System (Light Theme)
       </footer>
     </div>
   );

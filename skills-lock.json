@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "airbnb-ui-skills": {
+      "source": "ihlamury/design-skills",
+      "sourceType": "github",
+      "skillPath": "skills/airbnb/SKILL.md",
+      "computedHash": "e00b5d267633ef94ea2210c2f32a96267d5500b80949b2cc64eafb5a4583574d"
+    }
+  }
+}
