@@ -91,17 +91,17 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FEFEFE] text-[#222222] flex flex-col relative">
+    <div className="min-h-screen bg-[#FEFEFE] text-[#222222] flex flex-col font-sans">
       <Header />
 
-      <main className="flex-1 max-w-6xl w-full mx-auto px-6 py-8 flex flex-col justify-center">
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex flex-col">
         {isLoading ? (
-          <div className="flex flex-col items-center justify-center py-20 space-y-4">
+          <div className="flex flex-col items-center justify-center my-auto py-20 space-y-4">
             <Loader2 className="w-10 h-10 animate-spin text-[#FF385C]" />
             <p className="text-sm font-medium text-[#717171]">Loading profile data from server...</p>
           </div>
         ) : loadError ? (
-          <div className="max-w-md mx-auto my-12 airbnb-card p-8 rounded-2xl text-center space-y-4">
+          <div className="max-w-md mx-auto my-auto airbnb-card p-8 rounded-2xl text-center space-y-4">
             <div className="w-12 h-12 rounded-full bg-[#FFF1F0] text-[#E25275] flex items-center justify-center mx-auto">
               <AlertTriangle className="w-6 h-6" />
             </div>
@@ -116,9 +116,9 @@ export const App: React.FC = () => {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start my-auto">
             {/* Form Column */}
-            <div className="lg:col-span-7">
+            <div className="md:col-span-7">
               <ProfileForm
                 profile={profile}
                 onChange={handleProfileChange}
@@ -130,7 +130,7 @@ export const App: React.FC = () => {
             </div>
 
             {/* Preview Column */}
-            <div className="lg:col-span-5 sticky top-24">
+            <div className="md:col-span-5 md:sticky md:top-24">
               <ProfilePreview profile={profile} />
             </div>
           </div>
@@ -138,7 +138,7 @@ export const App: React.FC = () => {
       </main>
 
       <footer className="w-full border-t border-[#EBEBEB] py-6 text-center text-xs text-[#717171] bg-white">
-        misa.lol profile editor trial • Airbnb UI Design System (Light Theme)
+        misa.lol profile editor trial • Airbnb UI Design System
       </footer>
     </div>
   );
