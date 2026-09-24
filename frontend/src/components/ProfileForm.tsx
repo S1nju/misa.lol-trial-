@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Profile } from '../types';
+import { User, FileText, Link, Globe } from 'lucide-react';
 
 interface ProfileFormProps {
   profile: Profile;
@@ -72,8 +73,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
       {/* Field 1: Display Name */}
       <div className="form-group">
         <div className="form-label-row">
-          <label htmlFor="displayName" className="form-label">
-            Display Name
+          <label htmlFor="displayName" className="form-label flex items-center space-x-1.5">
+            <User className="w-4 h-4 text-[#717171] inline mr-1.5" />
+            <span>Display Name</span>
           </label>
           <span className={`char-counter ${nameTrimmedLen > 40 || nameTrimmedLen === 0 ? 'error' : ''}`}>
             {nameTrimmedLen} / 40
@@ -96,8 +98,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
       {/* Field 2: Bio */}
       <div className="form-group">
         <div className="form-label-row">
-          <label htmlFor="bio" className="form-label">
-            Bio
+          <label htmlFor="bio" className="form-label flex items-center space-x-1.5">
+            <FileText className="w-4 h-4 text-[#717171] inline mr-1.5" />
+            <span>Bio</span>
           </label>
           <span className={`char-counter ${bioTrimmedLen > 160 ? 'error' : ''}`}>
             {bioTrimmedLen} / 160
@@ -120,8 +123,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
       {/* Field 3: Link Label */}
       <div className="form-group">
         <div className="form-label-row">
-          <label htmlFor="linkLabel" className="form-label">
-            Link Label
+          <label htmlFor="linkLabel" className="form-label flex items-center space-x-1.5">
+            <Link className="w-4 h-4 text-[#717171] inline mr-1.5" />
+            <span>Link Label</span>
           </label>
           <span className={`char-counter ${linkLabelTrimmedLen > 30 || linkLabelTrimmedLen === 0 ? 'error' : ''}`}>
             {linkLabelTrimmedLen} / 30
@@ -144,8 +148,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
       {/* Field 4: Link URL */}
       <div className="form-group">
         <div className="form-label-row">
-          <label htmlFor="linkUrl" className="form-label">
-            Link URL (Must start with https://)
+          <label htmlFor="linkUrl" className="form-label flex items-center space-x-1.5">
+            <Globe className="w-4 h-4 text-[#717171] inline mr-1.5" />
+            <span>Link URL (Must start with https://)</span>
           </label>
         </div>
         <input
