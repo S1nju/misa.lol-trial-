@@ -1,12 +1,22 @@
+import pytest
+import main
 from fastapi.testclient import TestClient
-from main import app, INITIAL_PROFILE, current_profile
 
-client = TestClient(app)
+client = TestClient(main.app)
+
+@pytest.fixture(autouse=True)
+def reset_profile_state():
+    """Reset current_profile state to default initial profile before and after each test."""
+    main.current_profile = main.copy.deepcopy(main.INITIAL_PROFILE)
+    yield
+    main.current_profile = main.copy.deepcopy(main.INITIAL_PROFILE)
+
 
 def test_get_profile():
     response = client.get("/api/profile")
     assert response.status_code == 200
     assert response.json()["displayName"] == "Nova"
+
 
 def test_put_profile_valid():
     valid_payload = {
@@ -29,6 +39,7 @@ def test_put_profile_valid():
     get_res = client.get("/api/profile")
     assert get_res.json() == data
 
+
 def test_put_profile_invalid_http_url():
     prev_state = client.get("/api/profile").json()
     invalid_payload = {
@@ -42,10 +53,42 @@ def test_put_profile_invalid_http_url():
     response = client.put("/api/profile", json=invalid_payload)
     assert response.status_code == 400
     assert "link.url" in response.json()["details"]
+    assert client.get("/api/profile").json() == prev_state
 
-    # Verify stored profile remains unchanged
-    after_state = client.get("/api/profile").json()
-    assert after_state == prev_state
+
+def test_put_profile_regression_missing_double_slash():
+    """Regression test: https:example.com must be rejected."""
+    prev_state = client.get("/api/profile").json()
+    invalid_payload = {
+        "displayName": "Valid Name",
+        "bio": "Valid bio",
+        "link": {
+            "label": "Missing Slashes",
+            "url": "https:example.com"
+        }
+    }
+    response = client.put("/api/profile", json=invalid_payload)
+    assert response.status_code == 400
+    assert "link.url" in response.json()["details"]
+    assert client.get("/api/profile").json() == prev_state
+
+
+def test_put_profile_regression_malformed_port():
+    """Regression test: https://example.com:abc must be rejected."""
+    prev_state = client.get("/api/profile").json()
+    invalid_payload = {
+        "displayName": "Valid Name",
+        "bio": "Valid bio",
+        "link": {
+            "label": "Invalid Port",
+            "url": "https://example.com:abc"
+        }
+    }
+    response = client.put("/api/profile", json=invalid_payload)
+    assert response.status_code == 400
+    assert "link.url" in response.json()["details"]
+    assert client.get("/api/profile").json() == prev_state
+
 
 def test_put_profile_invalid_display_name_length():
     prev_state = client.get("/api/profile").json()
@@ -62,6 +105,7 @@ def test_put_profile_invalid_display_name_length():
     assert "displayName" in response.json()["details"]
     assert client.get("/api/profile").json() == prev_state
 
+
 def test_put_profile_invalid_empty_display_name():
     prev_state = client.get("/api/profile").json()
     invalid_payload = {
@@ -76,6 +120,7 @@ def test_put_profile_invalid_empty_display_name():
     assert response.status_code == 400
     assert "displayName" in response.json()["details"]
     assert client.get("/api/profile").json() == prev_state
+
 
 def test_put_profile_invalid_javascript_scheme():
     invalid_payload = {

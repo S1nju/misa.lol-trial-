@@ -12,6 +12,14 @@ describe('isValidHttpsUrl', () => {
     expect(isValidHttpsUrl('http://example.com')).toBe(false);
   });
 
+  it('returns false for missing double slashes (regression: https:example.com)', () => {
+    expect(isValidHttpsUrl('https:example.com')).toBe(false);
+  });
+
+  it('returns false for invalid port numbers (regression: https://example.com:abc)', () => {
+    expect(isValidHttpsUrl('https://example.com:abc')).toBe(false);
+  });
+
   it('returns false for javascript scheme', () => {
     expect(isValidHttpsUrl('javascript:alert(1)')).toBe(false);
   });

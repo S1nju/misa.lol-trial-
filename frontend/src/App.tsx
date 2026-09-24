@@ -38,7 +38,10 @@ export const App: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchProfile();
+    const init = async () => {
+      await fetchProfile();
+    };
+    init();
   }, []);
 
   const handleProfileChange = (updated: Profile) => {
@@ -81,7 +84,7 @@ export const App: React.FC = () => {
         setSaveSuccess(false);
       }, 4000);
 
-    } catch (err: any) {
+    } catch {
       setErrors({ _global: 'Network error. Could not reach server to save profile.' });
     } finally {
       setIsSaving(false);

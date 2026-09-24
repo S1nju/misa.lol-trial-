@@ -94,14 +94,19 @@ def validate_profile_payload(data: dict) -> tuple[dict, dict[str, str]]:
     # Rule: Link URL must be a valid absolute https:// URL with a hostname
     if not link_url:
         errors["link.url"] = "Link URL is required."
+    elif not link_url.startswith("https://"):
+        errors["link.url"] = "Link URL must start with 'https://'."
     else:
         try:
             parsed = urlparse(link_url)
-            # Must strictly be absolute https with valid scheme and hostname
+            # Accessing parsed.port validates integer port format
+            _ = parsed.port
             if parsed.scheme != "https":
                 errors["link.url"] = "Link URL must start with 'https://'."
             elif not parsed.netloc or not parsed.hostname:
                 errors["link.url"] = "Link URL must include a valid domain hostname (e.g. https://example.com)."
+        except ValueError:
+            errors["link.url"] = "Link URL contains an invalid port number."
         except Exception:
             errors["link.url"] = "Link URL is malformed."
 
