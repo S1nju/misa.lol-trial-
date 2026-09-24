@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+.venv/
+env/
+venv/
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Python cache & Pytest
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# IDE & OS files
+.DS_Store
+.vscode/
+.idea/
+*.log
