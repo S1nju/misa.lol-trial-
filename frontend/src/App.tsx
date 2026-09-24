@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Header } from './components/Header';
 import { ProfileForm } from './components/ProfileForm';
 import { ProfilePreview } from './components/ProfilePreview';
 import type { Profile, ApiErrorResponse } from './types';
@@ -91,15 +90,13 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#FEFEFE] text-[#222222] flex flex-col font-sans">
-      <Header />
-
-      <main className="flex-1 w-full px-4 sm:px-6 py-8 md:py-12">
+      <main className="flex-1 w-full px-6 sm:px-10 py-12 md:py-20 flex flex-col items-center justify-center">
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-20 space-y-4 text-center">
             <p className="text-sm font-medium text-[#717171]">Loading profile data...</p>
           </div>
         ) : loadError ? (
-          <div className="max-w-md mx-auto card-surface text-center space-y-4">
+          <div className="max-w-md w-full mx-auto card-surface text-center space-y-4">
             <h3 className="text-lg font-bold text-[#222222]">Connection Failed</h3>
             <p className="text-xs text-[#717171]">{loadError}</p>
             <button
@@ -132,7 +129,7 @@ export const App: React.FC = () => {
       </main>
 
       <footer className="w-full border-t border-[#EBEBEB] py-6 text-center text-xs text-[#717171] bg-white">
-        misa.lol profile editor trial 
+        misa.lol profile editor trial
       </footer>
     </div>
   );
